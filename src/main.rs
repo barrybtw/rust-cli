@@ -3,7 +3,7 @@ mod installers;
 mod prompts;
 
 use crate::{
-    helpers::{get_version::get_version, render_title::render_title, welcome::welcome_message},
+    helpers::welcome::welcome_message,
     installers::{
         defaults::install_defaults, env_vars::install_env, nextauth::install_nextauth,
         prisma::install_prisma, tailwind::install_tailwind, trpc::install_trpc,
@@ -81,6 +81,7 @@ fn main() {
 
     println!("Done! TODO: Install packages.");
     install_defaults(&app_name);
+    install_env(&app_name, &packages)
 
     // TODO: Finish installers
 }

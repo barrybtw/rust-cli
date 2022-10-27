@@ -1,9 +1,9 @@
 // Function to add environment variable addons to the installer
 // Path to addons: ../../template/addons/env
 
-use std::fs;
+use fs_extra::dir::remove;
 
-use crate::prompts::packages_prompt::Packages;
+use crate::{helpers::copy::copy_files, prompts::packages_prompt::Packages};
 
 pub fn install_env(_app_name: &str, packages: &Vec<Packages>) {
     println!("Installing environment variables...");
@@ -11,15 +11,11 @@ pub fn install_env(_app_name: &str, packages: &Vec<Packages>) {
     match packages {
         packages if packages.contains(&Packages::Prisma) => {
             println!("Installing Prisma environment variables...");
-            env_file = format!("{}-prisma", env_file);
-        }
-        packages if packages.contains(&Packages::Trpc) => {
-            println!("Installing Prisma environment variables...");
-            env_file = format!("{}-trpc", env_file);
+            env_file = format!("{}prisma-", env_file);
         }
         packages if packages.contains(&Packages::NextAuth) => {
             println!("Installing NextAuth environment variables...");
-            env_file = format!("{}-nextauth", env_file);
+            env_file = format!("{}auth-", env_file);
         }
         _ => {}
     }
@@ -29,9 +25,9 @@ pub fn install_env(_app_name: &str, packages: &Vec<Packages>) {
 
     // get file from ../../template/addons/env/env_file with fs::read_to_string
     //fix this not reading
-    let file = fs::read_to_string("./src/template/addons/env/auth-prisma-schema.mjs")
-        .expect("reading failed");
-    let current_dir = std::env::current_dir().unwrap();
-    println!("Current directory: {}", current_dir.display());
-    print!("{}", file);
+    env_file = format!("./src/template/addons/env/{}", env_file);
+    let destination = format!("{}/src/env/schema.mjs", _app_name);
+    remove(&destination).expect("Failed to remove directory.");
+    print!("{} {}", &env_file, &destination);
+    copy_files(&env_file, &destination)
 }
