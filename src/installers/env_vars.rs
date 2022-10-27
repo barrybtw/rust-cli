@@ -29,7 +29,9 @@ pub fn install_env(_app_name: &str, packages: &Vec<Packages>) {
 
     // get file from ../../template/addons/env/env_file with fs::read_to_string
     //fix this not reading
-    let file = fs::read_to_string("./../../template/addons/env/auth-prisma-schema.mjs")
+    let file = fs::read_to_string("./src/template/addons/env/auth-prisma-schema.mjs")
         .expect("reading failed");
+    let current_dir = std::env::current_dir().unwrap();
+    println!("Current directory: {}", current_dir.display());
     print!("{}", file);
 }

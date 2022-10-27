@@ -3,7 +3,7 @@ mod installers;
 mod prompts;
 
 use crate::{
-    helpers::{get_version::get_version, render_title::render_title, welcome::welcome_message},
+    helpers::{get_version::get_version, render_title::render_title},
     installers::{
         defaults::install_defaults, env_vars::install_env, nextauth::install_nextauth,
         prisma::install_prisma, tailwind::install_tailwind, trpc::install_trpc,
@@ -19,7 +19,8 @@ use crate::{
 };
 
 fn main() {
-    welcome_message();
+    render_title("Welcome to the Rusty T3 CLI");
+    println!("Version: {}", get_version());
 
     let app_name: String = name_prompt().unwrap();
     println!("App name: {}", app_name);
@@ -77,10 +78,9 @@ fn main() {
     }
     let mut package_list: Vec<Packages> = Vec::new();
     package_list.push(Packages::NextAuth.clone());
-    // install_env("hello", &package_list);
+    install_env("hello", &package_list);
 
     println!("Done! TODO: Install packages.");
-    install_defaults(&app_name);
 
     // TODO: Finish installers
 }
