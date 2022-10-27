@@ -13,16 +13,15 @@ use crate::prompts::{
 
 fn main() {
     let language: Languages = ask_language();
-    let package_manager: PackageManagers = ask_package_manager();
-    let packages: Result<Vec<Packages>, ErrorMessage> = ask_packages();
-
     println!("You selected: {:?} as your language.", language);
 
+    let package_manager: PackageManagers = ask_package_manager();
     println!(
         "You selected: {:?} as your package manager.",
         package_manager
     );
 
+    let packages: Result<Vec<Packages>, ErrorMessage> = ask_packages();
     println!("Packages:");
     let clone = &packages.clone().unwrap();
     for (index, package) in clone.iter().enumerate() {
