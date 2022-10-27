@@ -2,8 +2,6 @@ mod helpers;
 mod installers;
 mod prompts;
 
-use inquire::validator::ErrorMessage;
-
 use crate::{
     helpers::{get_version::get_version, render_title::render_title},
     prompts::{
@@ -12,7 +10,7 @@ use crate::{
         language_prompt::{ask_language, Languages},
         name_prompt::name_prompt,
         package_manager_prompt::{ask_package_manager, PackageManagers},
-        packages_prompt::{ask_packages, Packages},
+        packages_prompt::ask_packages,
     },
 };
 
@@ -32,9 +30,9 @@ fn main() {
         package_manager
     );
 
-    let packages: Result<Vec<Packages>, ErrorMessage> = ask_packages();
+    let packages = ask_packages().expect("Package prompt failed.");
     println!("Packages:");
-    let clone = &packages.clone().unwrap();
+    let clone = &packages.clone();
     for (index, package) in clone.iter().enumerate() {
         if index == clone.len() - 2 {
             print!("{} and ", package);

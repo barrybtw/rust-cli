@@ -1,7 +1,7 @@
 use dialoguer::{theme::ColorfulTheme, Confirm};
-use inquire::validator::ErrorMessage;
+use std::io::Error;
 
-pub fn ask_do_install(package_manager: String) -> Result<bool, ErrorMessage> {
+pub fn ask_do_install(package_manager: String) -> Result<bool, Error> {
     let message = format!(
         "Do you wish to install the packages with {} install?",
         package_manager.to_lowercase()

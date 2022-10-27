@@ -1,6 +1,7 @@
+use std::io::Error;
+
 use console::Term;
 use dialoguer::{theme::ColorfulTheme, MultiSelect};
-use inquire::validator::ErrorMessage;
 use strum::{Display, EnumIter, EnumString, IntoEnumIterator};
 
 #[derive(Debug, EnumIter, Display, Clone, Copy, EnumString)]
@@ -11,7 +12,7 @@ pub enum Packages {
     NextAuth,
 }
 
-pub fn ask_packages() -> Result<Vec<Packages>, ErrorMessage> {
+pub fn ask_packages() -> Result<Vec<Packages>, Error> {
     let package_list: Vec<_> = Packages::iter().collect();
 
     let selection = MultiSelect::with_theme(&ColorfulTheme::default())

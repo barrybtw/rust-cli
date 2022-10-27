@@ -1,7 +1,7 @@
 use dialoguer::{theme::ColorfulTheme, Confirm};
-use inquire::validator::ErrorMessage;
+use std::io::Error;
 
-pub fn ask_do_git_init() -> Result<bool, ErrorMessage> {
+pub fn ask_do_git_init() -> Result<bool, Error> {
     if Confirm::with_theme(&ColorfulTheme::default())
         .with_prompt("Do you wish to initialize an empty git repository?")
         .interact()?
