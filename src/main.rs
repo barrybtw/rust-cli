@@ -4,6 +4,10 @@ mod prompts;
 
 use crate::{
     helpers::{get_version::get_version, render_title::render_title},
+    installers::{
+        defaults::install_defaults, env_vars::install_env, nextauth::install_nextauth,
+        prisma::install_prisma, tailwind::install_tailwind, trpc::install_trpc,
+    },
     prompts::{
         git_init_prompt::ask_do_git_init,
         install_prompt::ask_do_install,
@@ -15,7 +19,7 @@ use crate::{
 };
 
 fn main() {
-    render_title("Welcome to the Rusty CLI");
+    render_title("Welcome to the Rusty T3 CLI");
     println!("Version: {}", get_version());
 
     let app_name: String = name_prompt().unwrap();
@@ -55,7 +59,28 @@ fn main() {
         false => println!("You selected not to install the packages."),
     }
 
-    println!("Done!");
+    for (_, package) in clone.iter().enumerate() {
+        install_defaults(&app_name);
+        match package {
+            Packages::Trpc => {
+                install_trpc(&app_name);
+            }
+            Packages::Prisma => {
+                install_prisma(&app_name);
+            }
+            Packages::Tailwind => {
+                install_tailwind(&app_name);
+            }
+            Packages::NextAuth => {
+                install_nextauth(&app_name);
+            }
+        }
+    }
+    let mut package_list: Vec<Packages> = Vec::new();
+    package_list.push(Packages::NextAuth.clone());
+    install_env("hello", &package_list);
+
+    println!("Done! TODO: Install packages.");
 
     // TODO: Finish installers
 }

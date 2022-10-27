@@ -4,7 +4,7 @@ use console::Term;
 use dialoguer::{theme::ColorfulTheme, MultiSelect};
 use strum::{Display, EnumIter, EnumString, IntoEnumIterator};
 
-#[derive(Debug, EnumIter, Display, Clone, Copy, EnumString)]
+#[derive(Debug, EnumIter, Display, Clone, Copy, EnumString, PartialEq)]
 pub enum Packages {
     Trpc,
     Prisma,
