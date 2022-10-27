@@ -1,0 +1,20 @@
+{
+  "name": "rust-cli",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barrybtw/rust-cli.git"
+  },
+  "bin": "target/release/rust-cli",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barrybtw/rust-cli/issues"
+  },
+  "homepage": "https://github.com/barrybtw/rust-cli#readme"
+}
