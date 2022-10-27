@@ -10,6 +10,7 @@ use crate::{
         git_init_prompt::ask_do_git_init,
         install_prompt::ask_do_install,
         language_prompt::{ask_language, Languages},
+        name_prompt::name_prompt,
         package_manager_prompt::{ask_package_manager, PackageManagers},
         packages_prompt::{ask_packages, Packages},
     },
@@ -18,6 +19,10 @@ use crate::{
 fn main() {
     render_title("Welcome to the Rusty CLI");
     println!("Version: {}", get_version());
+
+    let app_name = name_prompt().unwrap();
+    println!("App name: {}", app_name);
+
     let language: Languages = ask_language();
     println!("You selected: {:?} as your language.", language);
 
