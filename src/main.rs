@@ -5,7 +5,7 @@ mod prompts;
 use inquire::validator::ErrorMessage;
 
 use crate::{
-    helpers::render_title::render_title,
+    helpers::{get_version::get_version, render_title::render_title},
     prompts::{
         git_init_prompt::ask_do_git_init,
         install_prompt::ask_do_install,
@@ -17,6 +17,7 @@ use crate::{
 
 fn main() {
     render_title("Welcome to the Rusty CLI");
+    println!("Version: {}", get_version());
     let language: Languages = ask_language();
     println!("You selected: {:?} as your language.", language);
 
