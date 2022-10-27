@@ -1,17 +1,22 @@
+mod helpers;
 mod installers;
 mod prompts;
 
 use inquire::validator::ErrorMessage;
 
-use crate::prompts::{
-    git_init_prompt::ask_do_git_init,
-    install_prompt::ask_do_install,
-    language_prompt::{ask_language, Languages},
-    package_manager_prompt::{ask_package_manager, PackageManagers},
-    packages_prompt::{ask_packages, Packages},
+use crate::{
+    helpers::render_title::render_title,
+    prompts::{
+        git_init_prompt::ask_do_git_init,
+        install_prompt::ask_do_install,
+        language_prompt::{ask_language, Languages},
+        package_manager_prompt::{ask_package_manager, PackageManagers},
+        packages_prompt::{ask_packages, Packages},
+    },
 };
 
 fn main() {
+    render_title("Welcome to the Rusty CLI");
     let language: Languages = ask_language();
     println!("You selected: {:?} as your language.", language);
 
