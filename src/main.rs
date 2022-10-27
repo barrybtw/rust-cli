@@ -10,7 +10,7 @@ use crate::{
         language_prompt::{ask_language, Languages},
         name_prompt::name_prompt,
         package_manager_prompt::{ask_package_manager, PackageManagers},
-        packages_prompt::ask_packages,
+        packages_prompt::{ask_packages, Packages},
     },
 };
 
@@ -18,7 +18,7 @@ fn main() {
     render_title("Welcome to the Rusty CLI");
     println!("Version: {}", get_version());
 
-    let app_name = name_prompt().unwrap();
+    let app_name: String = name_prompt().unwrap();
     println!("App name: {}", app_name);
 
     let language: Languages = ask_language();
@@ -30,9 +30,9 @@ fn main() {
         package_manager
     );
 
-    let packages = ask_packages().expect("Package prompt failed.");
+    let packages: Vec<Packages> = ask_packages().expect("Package prompt failed.");
     println!("Packages:");
-    let clone = &packages.clone();
+    let clone: &Vec<Packages> = &packages.clone();
     for (index, package) in clone.iter().enumerate() {
         if index == clone.len() - 2 {
             print!("{} and ", package);
@@ -43,13 +43,13 @@ fn main() {
         }
     }
 
-    let do_git_init = ask_do_git_init().unwrap();
+    let do_git_init: bool = ask_do_git_init().unwrap();
     match do_git_init {
         true => println!("You selected to initialize a git repository."),
         false => println!("You selected not to initialize a git repository."),
     }
 
-    let do_install = ask_do_install(package_manager.to_string()).unwrap();
+    let do_install: bool = ask_do_install(package_manager.to_string()).unwrap();
     match do_install {
         true => println!("You selected to install the packages."),
         false => println!("You selected not to install the packages."),
